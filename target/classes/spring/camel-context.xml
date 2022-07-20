@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring       https://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+	<property name="configLocation" value="SqlMapConfig.xml"/>
+</bean>
+
+<bean id="mybatis" class="org.apache.camel.component.mybatis.MyBatisComponent">
+    <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+</bean>
+
+<bean id="myBean" class="org.mycompany.MyBean"/>
+	
+
+    <camelContext id="camel" xmlns="http://camel.apache.org/schema/spring">
+                         
+        <route id="simple-route">
+            <from id="route-timer" uri="timer://foo?repeatCount=1"/>
+           	<to uri="mybatis:selectByCityId?statementType=SelectOne"/>
+            <log id="route-log" message=">>> ${body}"/>
+            <log id="route-log" message=">>>=======mydata===== {{mydata}}" />
+            <log id="route-log" message=">>>=======mydata2===== {{mydata2}}" />
+            <filter>
+				<method ref="myBean" method="printValue" />
+				<log id="route-log" message=">>> ${body}"/>
+			</filter>
+        </route>
+    </camelContext>
+</beans>
