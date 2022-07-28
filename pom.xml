@@ -40,10 +40,24 @@
 			<artifactId>camel-spring-boot-starter</artifactId>
 			<version>2.23.2.fuse-7_10_0-00020-redhat-00001</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cxf</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-jasypt</artifactId>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-restlet</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-mybatis-starter</artifactId>
